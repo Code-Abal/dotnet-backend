@@ -1,48 +1,43 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using DodamClip.Models.DTOs;
 using DodamClip.Repositories.Admin;
+using DodamClip.Models.DTOs;
+using DodamClip.Models.Entities;
 
 namespace DodamClip.Services.Admin
 {
-    public class UserAdminService : IUserAdminService
+    public class UserAdminService
     {
         private readonly IUserAdminRepository _repo;
-
         public UserAdminService(IUserAdminRepository repo)
         {
             _repo = repo;
         }
 
-        public async Task DeleteAsync(Guid id)
-        {
-            var user = await _repo.GetByIdAsync(id);
-            if (user == null) return;
-            await _repo.DeleteAsync(user);
-        }
-
         public async Task<IEnumerable<UserDto>> GetAllAsync()
         {
             var users = await _repo.GetAllAsync();
-            return users.Select(u => new UserDto { Id = u.Id, Email = u.Email, FullName = u.FullName, Role = u.Role });
+            return users.Select(u => new UserDto { Id = u.Id, Username = u.Username, Email = u.Email, Role = u.Role });
         }
 
-        public async Task<UserDto> GetByIdAsync(Guid id)
+        public async Task<UserDto?> GetByIdAsync(int id)
         {
             var u = await _repo.GetByIdAsync(id);
             if (u == null) return null;
-            return new UserDto { Id = u.Id, Email = u.Email, FullName = u.FullName, Role = u.Role };
+            return new UserDto { Id = u.Id, Username = u.Username, Email = u.Email, Role = u.Role };
         }
 
-        public async Task UpdateAsync(UserDto dto)
+        public async Task UpdateAsync(int id, UserDto dto)
         {
-            var user = await _repo.GetByIdAsync(dto.Id);
-            if (user == null) return;
-            user.FullName = dto.FullName;
-            user.Role = dto.Role;
-            await _repo.UpdateAsync(user);
+            var u = await _repo.GetByIdAsync(id);
+            if (u == null) throw new KeyNotFoundException();
+            u.Username = dto.Username;
+            u.Email = dto.Email;
+            u.Role = dto.Role;
+            await _repo.UpdateAsync(u);
+        }
+
+        public async Task DeleteAsync(int id)
+        {
+            await _repo.DeleteAsync(id);
         }
     }
 }

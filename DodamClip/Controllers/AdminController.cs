@@ -1,6 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Threading.Tasks;
 using DodamClip.Services.Admin;
 using DodamClip.Models.DTOs;
 
@@ -10,40 +8,45 @@ namespace DodamClip.Controllers
     [Route("api/[controller]")]
     public class AdminController : ControllerBase
     {
-        private readonly IUserAdminService _service;
-
-        public AdminController(IUserAdminService service)
+        private readonly UserAdminService _admin;
+        public AdminController(UserAdminService admin)
         {
-            _service = service;
+            _admin = admin;
         }
 
         [HttpGet("users")]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetUsers()
         {
-            var users = await _service.GetAllAsync();
+            var users = await _admin.GetAllAsync();
             return Ok(users);
         }
 
         [HttpGet("users/{id}")]
-        public async Task<IActionResult> GetById(Guid id)
+        public async Task<IActionResult> GetUser(int id)
         {
-            var user = await _service.GetByIdAsync(id);
-            if (user == null) return NotFound();
-            return Ok(user);
+            var u = await _admin.GetByIdAsync(id);
+            if (u == null) return NotFound();
+            return Ok(u);
         }
 
         [HttpPut("users/{id}")]
-        public async Task<IActionResult> Update(Guid id, [FromBody] UserDto dto)
+        public async Task<IActionResult> UpdateUser(int id, [FromBody] UserDto dto)
         {
-            if (id != dto.Id) return BadRequest();
-            await _service.UpdateAsync(dto);
-            return NoContent();
+            try
+            {
+                await _admin.UpdateAsync(id, dto);
+                return NoContent();
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound();
+            }
         }
 
         [HttpDelete("users/{id}")]
-        public async Task<IActionResult> Delete(Guid id)
+        public async Task<IActionResult> DeleteUser(int id)
         {
-            await _service.DeleteAsync(id);
+            await _admin.DeleteAsync(id);
             return NoContent();
         }
     }

@@ -1,16 +1,15 @@
-using System;
+using DodamClip.Models.DTOs;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using MyApi.Models.DTOs;
 
-namespace MyApi.Services.Products
+namespace DodamClip.Services.Products
 {
     public interface IProductService
     {
         Task<IEnumerable<ProductDto>> GetAllAsync();
-        Task<ProductDto> GetByIdAsync(Guid id);
+        Task<ProductDto?> GetByIdAsync(int id);
         Task<ProductDto> CreateAsync(ProductDto dto);
-        Task UpdateAsync(ProductDto dto);
-        Task DeleteAsync(Guid id);
+        Task UpdateAsync(int id, ProductDto dto);
+        Task DeleteAsync(int id);
     }
 }

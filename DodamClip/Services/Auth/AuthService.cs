@@ -1,6 +1,5 @@
-using System.Threading.Tasks;
-using DodamClip.Models.DTOs;
 using DodamClip.Repositories.Auth;
+using DodamClip.Models.DTOs;
 using DodamClip.Models.Entities;
 
 namespace DodamClip.Services.Auth
@@ -14,24 +13,32 @@ namespace DodamClip.Services.Auth
             _userRepo = userRepo;
         }
 
-        public async Task<UserDto> LoginAsync(LoginDto dto)
+        public async Task<UserDto?> LoginAsync(LoginDto dto)
         {
-            var user = await _userRepo.GetByEmailAsync(dto.Email);
+            var user = await _userRepo.GetByUsernameAsync(dto.Username);
             if (user == null) return null;
-            if (user.Password != dto.Password) return null; // plaintext for demo only
+            // NOTE: Plain text password for demo only
+            if (user.Password != dto.Password) return null;
 
-            return new UserDto { Id = user.Id, Email = user.Email, FullName = user.FullName, Role = user.Role };
+            return new UserDto { Id = user.Id, Username = user.Username, Email = user.Email, Role = user.Role };
         }
 
-        public async Task<UserDto> RegisterAsync(LoginDto dto)
+        public async Task<UserDto> RegisterAsync(UserDto dto, string password)
         {
-            var existing = await _userRepo.GetByEmailAsync(dto.Email);
-            if (existing != null) return null;
+            var existing = await _userRepo.GetByUsernameAsync(dto.Username);
+            if (existing != null) throw new InvalidOperationException("User already exists");
 
-            var user = new User { Email = dto.Email, Password = dto.Password, FullName = dto.Email };
+            var user = new User
+            {
+                Username = dto.Username,
+                Email = dto.Email,
+                Password = password,
+                Role = dto.Role
+            };
+
             await _userRepo.AddAsync(user);
-
-            return new UserDto { Id = user.Id, Email = user.Email, FullName = user.FullName, Role = user.Role };
+            dto.Id = user.Id;
+            return dto;
         }
     }
 }

@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using MyApi.Models.Entities;
+using DodamClip.Models.Entities;
 
-namespace MyApi.Data
+namespace DodamClip.Data
 {
     public class ApplicationDbContext : DbContext
     {

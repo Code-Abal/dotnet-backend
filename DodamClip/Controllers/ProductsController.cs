@@ -1,6 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Threading.Tasks;
 using DodamClip.Services.Products;
 using DodamClip.Models.DTOs;
 
@@ -11,7 +9,6 @@ namespace DodamClip.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly IProductService _service;
-
         public ProductsController(IProductService service)
         {
             _service = service;
@@ -20,35 +17,41 @@ namespace DodamClip.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var items = await _service.GetAllAsync();
-            return Ok(items);
+            var list = await _service.GetAllAsync();
+            return Ok(list);
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(Guid id)
+        public async Task<IActionResult> Get(int id)
         {
-            var item = await _service.GetByIdAsync(id);
-            if (item == null) return NotFound();
-            return Ok(item);
+            var p = await _service.GetByIdAsync(id);
+            if (p == null) return NotFound();
+            return Ok(p);
         }
 
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] ProductDto dto)
         {
             var created = await _service.CreateAsync(dto);
-            return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
+            return CreatedAtAction(nameof(Get), new { id = created.Id }, created);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(Guid id, [FromBody] ProductDto dto)
+        public async Task<IActionResult> Update(int id, [FromBody] ProductDto dto)
         {
-            if (id != dto.Id) return BadRequest();
-            await _service.UpdateAsync(dto);
-            return NoContent();
+            try
+            {
+                await _service.UpdateAsync(id, dto);
+                return NoContent();
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound();
+            }
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(Guid id)
+        public async Task<IActionResult> Delete(int id)
         {
             await _service.DeleteAsync(id);
             return NoContent();

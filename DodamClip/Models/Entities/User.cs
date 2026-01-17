@@ -1,13 +1,12 @@
-using System;
-
-namespace MyApi.Models.Entities
+namespace DodamClip.Models.Entities
 {
     public class User
     {
-        public Guid Id { get; set; } = Guid.NewGuid();
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public string Role { get; set; } = "User"; // User or Admin
-        public string FullName { get; set; }
+        public int Id { get; set; }
+        public string Username { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
+        // NOTE: In a real app store hashed password
+        public string Password { get; set; } = string.Empty;
+        public string Role { get; set; } = "User";
     }
 }

@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 using DodamClip.Services.Auth;
 using DodamClip.Models.DTOs;
 
@@ -16,20 +15,26 @@ namespace DodamClip.Controllers
             _auth = auth;
         }
 
-        [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] LoginDto dto)
-        {
-            var user = await _auth.RegisterAsync(dto);
-            if (user == null) return BadRequest("User already exists");
-            return Ok(user);
-        }
-
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDto dto)
         {
             var user = await _auth.LoginAsync(dto);
             if (user == null) return Unauthorized();
             return Ok(user);
+        }
+
+        [HttpPost("register")]
+        public async Task<IActionResult> Register([FromBody] UserDto dto, [FromQuery] string password)
+        {
+            try
+            {
+                var created = await _auth.RegisterAsync(dto, password);
+                return CreatedAtAction(nameof(Register), new { id = created.Id }, created);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return Conflict(new { message = ex.Message });
+            }
         }
     }
 }
