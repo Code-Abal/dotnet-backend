@@ -1,14 +1,14 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using MyApi.Data;
+using DodamClip.Data;
 using Microsoft.EntityFrameworkCore;
-using MyApi.Repositories.Auth;
-using MyApi.Repositories.Products;
-using MyApi.Repositories.Admin;
-using MyApi.Services.Auth;
-using MyApi.Services.Products;
-using MyApi.Services.Admin;
+using DodamClip.Repositories.Auth;
+using DodamClip.Repositories.Products;
+using DodamClip.Repositories.Admin;
+using DodamClip.Services.Auth;
+using DodamClip.Services.Products;
+using DodamClip.Services.Admin;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,7 +18,7 @@ builder.Services.AddSwaggerGen();
 
 // InMemory DB for demo
 builder.Services.AddDbContext<ApplicationDbContext>(opt =>
-    opt.UseInMemoryDatabase("MyApiDb"));
+    opt.UseInMemoryDatabase("DodamClipDb"));
 
 // Repositories
 builder.Services.AddScoped<IUserRepository, UserRepository>();

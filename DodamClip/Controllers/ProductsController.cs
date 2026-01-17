@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
-using MyApi.Services.Products;
-using MyApi.Models.DTOs;
+using DodamClip.Services.Products;
+using DodamClip.Models.DTOs;
 
-namespace MyApi.Controllers
+namespace DodamClip.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

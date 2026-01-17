@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using MyApi.Models.Entities;
+using DodamClip.Models.Entities;
 
-namespace MyApi.Repositories.Products
+namespace DodamClip.Repositories.Products
 {
     public interface IProductRepository
     {

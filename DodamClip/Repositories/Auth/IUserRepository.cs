@@ -1,8 +1,8 @@
 using System;
 using System.Threading.Tasks;
-using MyApi.Models.Entities;
+using DodamClip.Models.Entities;
 
-namespace MyApi.Repositories.Auth
+namespace DodamClip.Repositories.Auth
 {
     public interface IUserRepository
     {

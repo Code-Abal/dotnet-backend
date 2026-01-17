@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using MyApi.Models.DTOs;
+using DodamClip.Models.DTOs;
 
-namespace MyApi.Services.Admin
+namespace DodamClip.Services.Admin
 {
     public interface IUserAdminService
     {

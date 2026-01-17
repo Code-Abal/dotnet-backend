@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using MyApi.Data;
-using MyApi.Models.Entities;
+using DodamClip.Data;
+using DodamClip.Models.Entities;
 
-namespace MyApi.Repositories.Admin
+namespace DodamClip.Repositories.Admin
 {
     public class UserAdminRepository : IUserAdminRepository
     {

@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
-using MyApi.Models.DTOs;
+using DodamClip.Models.DTOs;
 
-namespace MyApi.Services.Auth
+namespace DodamClip.Services.Auth
 {
     public interface IAuthService
     {

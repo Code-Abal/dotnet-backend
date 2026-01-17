@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MyApi.Models.DTOs;
-using MyApi.Repositories.Admin;
+using DodamClip.Models.DTOs;
+using DodamClip.Repositories.Admin;
 
-namespace MyApi.Services.Admin
+namespace DodamClip.Services.Admin
 {
     public class UserAdminService : IUserAdminService
     {

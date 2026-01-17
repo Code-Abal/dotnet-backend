@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using MyApi.Services.Auth;
-using MyApi.Models.DTOs;
+using DodamClip.Services.Auth;
+using DodamClip.Models.DTOs;
 
-namespace MyApi.Controllers
+namespace DodamClip.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

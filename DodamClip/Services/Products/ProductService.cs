@@ -2,11 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MyApi.Models.DTOs;
-using MyApi.Models.Entities;
-using MyApi.Repositories.Products;
+using DodamClip.Models.DTOs;
+using DodamClip.Models.Entities;
+using DodamClip.Repositories.Products;
 
-namespace MyApi.Services.Products
+namespace DodamClip.Services.Products
 {
     public class ProductService : IProductService
     {

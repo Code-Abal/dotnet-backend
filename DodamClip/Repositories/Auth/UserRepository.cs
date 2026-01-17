@@ -1,9 +1,9 @@
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using MyApi.Data;
-using MyApi.Models.Entities;
+using DodamClip.Data;
+using DodamClip.Models.Entities;
 
-namespace MyApi.Repositories.Auth
+namespace DodamClip.Repositories.Auth
 {
     public class UserRepository : IUserRepository
     {

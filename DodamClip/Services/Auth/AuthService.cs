@@ -1,9 +1,9 @@
 using System.Threading.Tasks;
-using MyApi.Models.DTOs;
-using MyApi.Repositories.Auth;
-using MyApi.Models.Entities;
+using DodamClip.Models.DTOs;
+using DodamClip.Repositories.Auth;
+using DodamClip.Models.Entities;
 
-namespace MyApi.Services.Auth
+namespace DodamClip.Services.Auth
 {
     public class AuthService : IAuthService
     {

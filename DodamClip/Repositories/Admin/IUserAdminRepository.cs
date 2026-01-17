@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using MyApi.Models.Entities;
+using DodamClip.Models.Entities;
 
-namespace MyApi.Repositories.Admin
+namespace DodamClip.Repositories.Admin
 {
     public interface IUserAdminRepository
     {
